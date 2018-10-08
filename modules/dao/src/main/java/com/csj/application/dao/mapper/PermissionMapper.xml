@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csj.application.dao.PermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.csj.application.model.Permission" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="per_name" property="perName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, per_name
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from sys_permission where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByRole" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select  *  from sys_permission where id in(
+            select distinct per_id from sys_role_permission where role_id in
+            <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+           </foreach>
+    )
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_permission
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.csj.application.model.Permission" >
+    insert into sys_permission (id, per_name)
+    values (#{id,jdbcType=VARCHAR}, #{perName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.csj.application.model.Permission" >
+    insert into sys_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="perName != null" >
+        per_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="perName != null" >
+        #{perName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.csj.application.model.Permission" >
+    update sys_permission
+    <set >
+      <if test="perName != null" >
+        per_name = #{perName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.csj.application.model.Permission" >
+    update sys_permission
+    set per_name = #{perName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
