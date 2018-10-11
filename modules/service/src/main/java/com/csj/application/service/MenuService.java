@@ -21,7 +21,7 @@ public class MenuService {
         List<MenuVo> menuVos = Lists.transform(menus, menu -> new MenuVo(menu));
         List<MenuVo> rootMenus = new ArrayList<>();
         for (MenuVo menu : menuVos) {
-            if (null == menu.getPid()) {
+            if (null == menu.getPid()||menu.getPid().equals("")) {
                 rootMenus.add(menu);
             }
         }

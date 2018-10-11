@@ -71,11 +71,11 @@ layui.use(['layer', 'element', 'util'], function () {
 
     // 添加TAB选项卡
     window.addTab = function (elem, tit, url) {
-        var card = 'card';                                              // 选项卡对象
-        var title = tit ? tit : elem.children('a').html();              // 导航栏text
-        var src = url ? url : elem.children('a').attr('href-url');      // 导航栏跳转URL
-        var id = new Date().getTime();                                  // ID
-        var flag = getTitleId(card, title);                             // 是否有该选项卡存在
+        var card = 'card';                                 // 选项卡对象
+        var title = tit ? tit : elem.html();               // 导航栏text
+        var src = url ? url : elem.attr('href-url');      // 导航栏跳转URL
+        var id = new Date().getTime();                     // ID
+        var flag = getTitleId(card, title);                // 是否有该选项卡存在
         // 大于0就是有该选项卡了
         if (flag > 0) {
             id = flag;
@@ -93,8 +93,6 @@ layui.use(['layer', 'element', 'util'], function () {
         }
         // 切换相应的ID tab
         element.tabChange(card, id);
-        // 提示信息
-        // layer.msg(title);
     };
 
     // 监听顶部左侧导航
