@@ -22,9 +22,20 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+
+    @GetMapping("/top")
+    @ResponseBody
+    public Map<String,Object>  topMenu(){
+        User user=(User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
+        List<MenuVo> userMenus = menuService.getUserMenus(user.getId());
+        Map<String,Object> dataMap=new HashMap<>();
+        dataMap.put("data",userMenus);
+        return dataMap;
+    }
+
     @GetMapping("/left")
     @ResponseBody
-    public Map<String,Object>  list(){
+    public Map<String,Object>  leftMenu(){
         User user=(User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         List<MenuVo> userMenus = menuService.getUserMenus(user.getId());
         Map<String,Object> dataMap=new HashMap<>();
