@@ -1,4 +1,3 @@
-/** layuiAdmin.std-v1.1.0 LPPL License By http://www.layui.com/admin/ */
 ;layui.define("view", function (e) {
     var a = layui.jquery, i = layui.laytpl, t = layui.element, n = layui.setter, l = layui.view, s = layui.device(),
         r = a(window), o = a("body"), u = a("#" + n.container), d = "layui-show", c = "layui-hide", y = "layui-this",

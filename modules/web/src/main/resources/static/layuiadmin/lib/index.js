@@ -1,4 +1,3 @@
-/** layuiAdmin.std-v1.1.0 LPPL License By http://www.layui.com/admin/ */
 ;layui.extend({setter: "config", admin: "lib/admin", view: "lib/view"}).define(
     ["setter", "admin"],
     function (a) {
@@ -26,6 +25,7 @@
                 var n = {};
                 n[i] = "{/}" + e.base + "lib/extend/" + i, layui.extend(n)
             }),
-            d().autoRender(), layui.use("common"),
+            d().autoRender(),
+            layui.use("common"),
             a("index", {openTabsPage: l})
     });

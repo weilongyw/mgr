@@ -1,109 +1,662 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <title>角色管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Data-Table 表格</title>
-    <link rel="stylesheet" href="/static/frame/layui/css/layui.css">
-    <!--<link rel="stylesheet" href="http://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">-->
-    <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="icon" href="/static/image/code.png">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/static/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/static/layuiadmin/style/admin.css" media="all">
+    <link id="layuicss-layer" rel="stylesheet"
+          href="https://www.layui.com/admin/std/dist/layuiadmin/layui/css/modules/layer/default/layer.css?v=3.1.1"
+          media="all">
 </head>
-<body class="body">
+<body layadmin-themealias="default" style="">
 
-<!-- 工具集 -->
-<div class="my-btn-box">
-    <span class="fl">
-        <a class="layui-btn layui-btn-danger radius btn-delect" id="btn-delete-all">批量删除</a>
-        <a class="layui-btn btn-add btn-default" id="btn-add">添加</a>
-        <a class="layui-btn btn-add btn-default" id="btn-refresh"><i class="layui-icon">&#x1002;</i></a>
-    </span>
-    <span class="fr">
-        <span class="layui-form-label">搜索条件：</span>
-        <div class="layui-input-inline">
-            <input type="text" autocomplete="off" placeholder="请输入搜索条件" class="layui-input">
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    角色筛选
+                </div>
+                <div class="layui-inline">
+                    <select name="rolename" lay-filter="LAY-user-adminrole-type">
+                        <option value="-1">全部角色</option>
+                        <option value="0">管理员</option>
+                        <option value="1">超级管理员</option>
+                        <option value="2">纠错员</option>
+                        <option value="3">采购员</option>
+                        <option value="4">推销员</option>
+                        <option value="5">运营人员</option>
+                        <option value="6">编辑</option>
+                    </select>
+                    <div class="layui-unselect layui-form-select">
+                        <div class="layui-select-title">
+                            <input type="text" placeholder="请选择" value="全部角色" readonly="" class="layui-edge"></i></div>
+                        <dl class="layui-anim layui-anim-upbit">
+                            <dd lay-value="-1" class="layui-this">全部角色</dd>
+                            <dd lay-value="0" class="">管理员</dd>
+                            <dd lay-value="1" class="">超级管理员</dd>
+                            <dd lay-value="2" class="">纠错员</dd>
+                            <dd lay-value="3" class="">采购员</dd>
+                            <dd lay-value="4" class="">推销员</dd>
+                            <dd lay-value="5" class="">运营人员</dd>
+                            <dd lay-value="6" class="">编辑</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
         </div>
-        <button class="layui-btn mgl-20">查询</button>
-    </span>
+        <div class="layui-card-body">
+            <div style="padding-bottom: 10px;">
+                <button class="layui-btn layuiadmin-btn-role" data-type="batchdel">删除</button>
+                <button class="layui-btn layuiadmin-btn-role" data-type="add">添加</button>
+            </div>
+
+            <table id="LAY-user-back-role" lay-filter="LAY-user-back-role"></table>
+            <div class="layui-form layui-border-box layui-table-view" lay-filter="LAY-table-3" style=" ">
+                <div class="layui-table-box">
+                    <div class="layui-table-header">
+                        <table cellspacing="0" cellpadding="0" border="0" class="layui-table">
+                            <thead>
+                            <tr>
+                                <th data-field="0" data-key="3-0-0" data-unresize="true"
+                                    class=" layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-3-0-0 laytable-cell-checkbox"><input
+                                            type="checkbox" name="layTableCheckbox" lay-skin="primary"
+                                            lay-filter="layTableAllChoose">
+                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                class="layui-icon layui-icon-ok"></i></div>
+                                    </div>
+                                </th>
+                                <th data-field="id" data-key="3-0-1" class=" layui-unselect">
+                                    <div class="layui-table-cell laytable-cell-3-0-1"><span>ID</span><span
+                                            class="layui-table-sort layui-inline"><i
+                                            class="layui-edge layui-table-sort-asc" title="升序"></i><i
+                                            class="layui-edge layui-table-sort-desc" title="降序"></i></span></div>
+                                </th>
+                                <th data-field="rolename" data-key="3-0-2" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-2"><span>角色名</span></div>
+                                </th>
+                                <th data-field="limits" data-key="3-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-3"><span>拥有权限</span></div>
+                                </th>
+                                <th data-field="descr" data-key="3-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-4"><span>具体描述</span></div>
+                                </th>
+                                <th data-field="5" data-key="3-0-5" class=" layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-3-0-5" align="center"><span>操作</span>
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="layui-table-body layui-table-main">
+                        <table cellspacing="0" cellpadding="0" border="0" class="layui-table">
+                            <tbody>
+                            <tr data-index="0" class="">
+                                <td data-field="0" data-key="3-0-0" class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-3-0-0 laytable-cell-checkbox"><input
+                                            type="checkbox" name="layTableCheckbox" lay-skin="primary">
+                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                class="layui-icon layui-icon-ok"></i></div>
+                                    </div>
+                                </td>
+                                <td data-field="id" data-key="3-0-1" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-1">1</div>
+                                </td>
+                                <td data-field="rolename" data-key="3-0-2" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-2">超级管理员</div>
+                                </td>
+                                <td data-field="limits" data-key="3-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-3">管理所有的管理员</div>
+                                </td>
+                                <td data-field="descr" data-key="3-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-4">拥有至高无上的权利</div>
+                                </td>
+                                <td data-field="5" data-key="3-0-5" align="center" data-off="true"
+                                    class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-3-0-5"><a
+                                            class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                                            class="layui-icon layui-icon-edit"></i>编辑</a> <a
+                                            class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                                            class="layui-icon layui-icon-delete"></i>删除</a></div>
+                                </td>
+                            </tr>
+                            <tr data-index="1" class="">
+                                <td data-field="0" data-key="3-0-0" class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-3-0-0 laytable-cell-checkbox"><input
+                                            type="checkbox" name="layTableCheckbox" lay-skin="primary">
+                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                class="layui-icon layui-icon-ok"></i></div>
+                                    </div>
+                                </td>
+                                <td data-field="id" data-key="3-0-1" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-1">2</div>
+                                </td>
+                                <td data-field="rolename" data-key="3-0-2" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-2">管理员</div>
+                                </td>
+                                <td data-field="limits" data-key="3-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-3">所有列表的管理</div>
+                                </td>
+                                <td data-field="descr" data-key="3-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-4">事情很多，权力很大</div>
+                                </td>
+                                <td data-field="5" data-key="3-0-5" align="center" data-off="true"
+                                    class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-3-0-5"><a
+                                            class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                                            class="layui-icon layui-icon-edit"></i>编辑</a> <a
+                                            class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                                            class="layui-icon layui-icon-delete"></i>删除</a></div>
+                                </td>
+                            </tr>
+                            <tr data-index="2">
+                                <td data-field="0" data-key="3-0-0" class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-3-0-0 laytable-cell-checkbox"><input
+                                            type="checkbox" name="layTableCheckbox" lay-skin="primary">
+                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                class="layui-icon layui-icon-ok"></i></div>
+                                    </div>
+                                </td>
+                                <td data-field="id" data-key="3-0-1" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-1">3</div>
+                                </td>
+                                <td data-field="rolename" data-key="3-0-2" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-2">文章撰写员</div>
+                                </td>
+                                <td data-field="limits" data-key="3-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-3">负责文章的编写</div>
+                                </td>
+                                <td data-field="descr" data-key="3-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-4">文采第一的人才集合</div>
+                                </td>
+                                <td data-field="5" data-key="3-0-5" align="center" data-off="true"
+                                    class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-3-0-5"><a
+                                            class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                                            class="layui-icon layui-icon-edit"></i>编辑</a> <a
+                                            class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                                            class="layui-icon layui-icon-delete"></i>删除</a></div>
+                                </td>
+                            </tr>
+                            <tr data-index="3" class="">
+                                <td data-field="0" data-key="3-0-0" class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-3-0-0 laytable-cell-checkbox"><input
+                                            type="checkbox" name="layTableCheckbox" lay-skin="primary">
+                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                class="layui-icon layui-icon-ok"></i></div>
+                                    </div>
+                                </td>
+                                <td data-field="id" data-key="3-0-1" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-1">4</div>
+                                </td>
+                                <td data-field="rolename" data-key="3-0-2" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-2">纠错员</div>
+                                </td>
+                                <td data-field="limits" data-key="3-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-3">负责文章内容的修改</div>
+                                </td>
+                                <td data-field="descr" data-key="3-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-4">暂无</div>
+                                </td>
+                                <td data-field="5" data-key="3-0-5" align="center" data-off="true"
+                                    class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-3-0-5"><a
+                                            class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                                            class="layui-icon layui-icon-edit"></i>编辑</a> <a
+                                            class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                                            class="layui-icon layui-icon-delete"></i>删除</a></div>
+                                </td>
+                            </tr>
+                            <tr data-index="4" class="">
+                                <td data-field="0" data-key="3-0-0" class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-3-0-0 laytable-cell-checkbox"><input
+                                            type="checkbox" name="layTableCheckbox" lay-skin="primary">
+                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                class="layui-icon layui-icon-ok"></i></div>
+                                    </div>
+                                </td>
+                                <td data-field="id" data-key="3-0-1" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-1">5</div>
+                                </td>
+                                <td data-field="rolename" data-key="3-0-2" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-2">统计人员</div>
+                                </td>
+                                <td data-field="limits" data-key="3-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-3">对数据进行统计</div>
+                                </td>
+                                <td data-field="descr" data-key="3-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-4">暂无</div>
+                                </td>
+                                <td data-field="5" data-key="3-0-5" align="center" data-off="true"
+                                    class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-3-0-5"><a
+                                            class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                                            class="layui-icon layui-icon-edit"></i>编辑</a> <a
+                                            class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                                            class="layui-icon layui-icon-delete"></i>删除</a></div>
+                                </td>
+                            </tr>
+                            <tr data-index="5">
+                                <td data-field="0" data-key="3-0-0" class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-3-0-0 laytable-cell-checkbox"><input
+                                            type="checkbox" name="layTableCheckbox" lay-skin="primary">
+                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                class="layui-icon layui-icon-ok"></i></div>
+                                    </div>
+                                </td>
+                                <td data-field="id" data-key="3-0-1" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-1">6</div>
+                                </td>
+                                <td data-field="rolename" data-key="3-0-2" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-2">评估员</div>
+                                </td>
+                                <td data-field="limits" data-key="3-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-3">对统计数据进行评估</div>
+                                </td>
+                                <td data-field="descr" data-key="3-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-4">及时捕捉市场发展动态</div>
+                                </td>
+                                <td data-field="5" data-key="3-0-5" align="center" data-off="true"
+                                    class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-3-0-5"><a
+                                            class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                                            class="layui-icon layui-icon-edit"></i>编辑</a> <a
+                                            class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                                            class="layui-icon layui-icon-delete"></i>删除</a></div>
+                                </td>
+                            </tr>
+                            <tr data-index="6">
+                                <td data-field="0" data-key="3-0-0" class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-3-0-0 laytable-cell-checkbox"><input
+                                            type="checkbox" name="layTableCheckbox" lay-skin="primary">
+                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                class="layui-icon layui-icon-ok"></i></div>
+                                    </div>
+                                </td>
+                                <td data-field="id" data-key="3-0-1" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-1">7</div>
+                                </td>
+                                <td data-field="rolename" data-key="3-0-2" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-2">采购员</div>
+                                </td>
+                                <td data-field="limits" data-key="3-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-3">负责员工的伙食</div>
+                                </td>
+                                <td data-field="descr" data-key="3-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-4">暂无</div>
+                                </td>
+                                <td data-field="5" data-key="3-0-5" align="center" data-off="true"
+                                    class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-3-0-5"><a
+                                            class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                                            class="layui-icon layui-icon-edit"></i>编辑</a> <a
+                                            class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                                            class="layui-icon layui-icon-delete"></i>删除</a></div>
+                                </td>
+                            </tr>
+                            <tr data-index="7">
+                                <td data-field="0" data-key="3-0-0" class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-3-0-0 laytable-cell-checkbox"><input
+                                            type="checkbox" name="layTableCheckbox" lay-skin="primary">
+                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                class="layui-icon layui-icon-ok"></i></div>
+                                    </div>
+                                </td>
+                                <td data-field="id" data-key="3-0-1" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-1">8</div>
+                                </td>
+                                <td data-field="rolename" data-key="3-0-2" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-2">推销员</div>
+                                </td>
+                                <td data-field="limits" data-key="3-0-3" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-3">介绍销售公司产品</div>
+                                </td>
+                                <td data-field="descr" data-key="3-0-4" class="">
+                                    <div class="layui-table-cell laytable-cell-3-0-4">暂无</div>
+                                </td>
+                                <td data-field="5" data-key="3-0-5" align="center" data-off="true"
+                                    class="layui-table-col-special">
+                                    <div class="layui-table-cell laytable-cell-3-0-5"><a
+                                            class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                                            class="layui-icon layui-icon-edit"></i>编辑</a> <a
+                                            class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                                            class="layui-icon layui-icon-delete"></i>删除</a></div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="layui-table-fixed layui-table-fixed-l">
+                        <div class="layui-table-header">
+                            <table cellspacing="0" cellpadding="0" border="0" class="layui-table">
+                                <thead>
+                                <tr>
+                                    <th data-field="0" data-key="3-0-0" data-unresize="true"
+                                        class=" layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-3-0-0 laytable-cell-checkbox"><input
+                                                type="checkbox" name="layTableCheckbox" lay-skin="primary"
+                                                lay-filter="layTableAllChoose">
+                                            <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                    class="layui-icon layui-icon-ok"></i></div>
+                                        </div>
+                                    </th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="layui-table-body" style="height: auto;">
+                            <table cellspacing="0" cellpadding="0" border="0" class="layui-table">
+                                <tbody>
+                                <tr data-index="0" class="">
+                                    <td data-field="0" data-key="3-0-0" class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-3-0-0 laytable-cell-checkbox"><input
+                                                type="checkbox" name="layTableCheckbox" lay-skin="primary">
+                                            <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                    class="layui-icon layui-icon-ok"></i></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr data-index="1" class="">
+                                    <td data-field="0" data-key="3-0-0" class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-3-0-0 laytable-cell-checkbox"><input
+                                                type="checkbox" name="layTableCheckbox" lay-skin="primary">
+                                            <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                    class="layui-icon layui-icon-ok"></i></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr data-index="2">
+                                    <td data-field="0" data-key="3-0-0" class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-3-0-0 laytable-cell-checkbox"><input
+                                                type="checkbox" name="layTableCheckbox" lay-skin="primary">
+                                            <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                    class="layui-icon layui-icon-ok"></i></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr data-index="3" class="">
+                                    <td data-field="0" data-key="3-0-0" class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-3-0-0 laytable-cell-checkbox"><input
+                                                type="checkbox" name="layTableCheckbox" lay-skin="primary">
+                                            <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                    class="layui-icon layui-icon-ok"></i></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr data-index="4" class="">
+                                    <td data-field="0" data-key="3-0-0" class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-3-0-0 laytable-cell-checkbox"><input
+                                                type="checkbox" name="layTableCheckbox" lay-skin="primary">
+                                            <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                    class="layui-icon layui-icon-ok"></i></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr data-index="5">
+                                    <td data-field="0" data-key="3-0-0" class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-3-0-0 laytable-cell-checkbox"><input
+                                                type="checkbox" name="layTableCheckbox" lay-skin="primary">
+                                            <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                    class="layui-icon layui-icon-ok"></i></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr data-index="6">
+                                    <td data-field="0" data-key="3-0-0" class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-3-0-0 laytable-cell-checkbox"><input
+                                                type="checkbox" name="layTableCheckbox" lay-skin="primary">
+                                            <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                    class="layui-icon layui-icon-ok"></i></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr data-index="7">
+                                    <td data-field="0" data-key="3-0-0" class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-3-0-0 laytable-cell-checkbox"><input
+                                                type="checkbox" name="layTableCheckbox" lay-skin="primary">
+                                            <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                    class="layui-icon layui-icon-ok"></i></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="layui-table-fixed layui-table-fixed-r layui-hide" style="right: -1px;">
+                        <div class="layui-table-header">
+                            <table cellspacing="0" cellpadding="0" border="0" class="layui-table">
+                                <thead>
+                                <tr>
+                                    <th data-field="5" data-key="3-0-5" class=" layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-3-0-5" align="center"><span>操作</span>
+                                        </div>
+                                    </th>
+                                </tr>
+                                </thead>
+                            </table>
+                            <div class="layui-table-mend"></div>
+                        </div>
+                        <div class="layui-table-body" style="height: auto;">
+                            <table cellspacing="0" cellpadding="0" border="0" class="layui-table">
+                                <tbody>
+                                <tr data-index="0" class="">
+                                    <td data-field="5" data-key="3-0-5" align="center" data-off="true"
+                                        class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-3-0-5"><a
+                                                class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                                                class="layui-icon layui-icon-edit"></i>编辑</a> <a
+                                                class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                                                class="layui-icon layui-icon-delete"></i>删除</a></div>
+                                    </td>
+                                </tr>
+                                <tr data-index="1" class="">
+                                    <td data-field="5" data-key="3-0-5" align="center" data-off="true"
+                                        class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-3-0-5"><a
+                                                class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                                                class="layui-icon layui-icon-edit"></i>编辑</a> <a
+                                                class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                                                class="layui-icon layui-icon-delete"></i>删除</a></div>
+                                    </td>
+                                </tr>
+                                <tr data-index="2">
+                                    <td data-field="5" data-key="3-0-5" align="center" data-off="true"
+                                        class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-3-0-5"><a
+                                                class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                                                class="layui-icon layui-icon-edit"></i>编辑</a> <a
+                                                class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                                                class="layui-icon layui-icon-delete"></i>删除</a></div>
+                                    </td>
+                                </tr>
+                                <tr data-index="3" class="">
+                                    <td data-field="5" data-key="3-0-5" align="center" data-off="true"
+                                        class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-3-0-5"><a
+                                                class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                                                class="layui-icon layui-icon-edit"></i>编辑</a> <a
+                                                class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                                                class="layui-icon layui-icon-delete"></i>删除</a></div>
+                                    </td>
+                                </tr>
+                                <tr data-index="4" class="">
+                                    <td data-field="5" data-key="3-0-5" align="center" data-off="true"
+                                        class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-3-0-5"><a
+                                                class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                                                class="layui-icon layui-icon-edit"></i>编辑</a> <a
+                                                class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                                                class="layui-icon layui-icon-delete"></i>删除</a></div>
+                                    </td>
+                                </tr>
+                                <tr data-index="5">
+                                    <td data-field="5" data-key="3-0-5" align="center" data-off="true"
+                                        class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-3-0-5"><a
+                                                class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                                                class="layui-icon layui-icon-edit"></i>编辑</a> <a
+                                                class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                                                class="layui-icon layui-icon-delete"></i>删除</a></div>
+                                    </td>
+                                </tr>
+                                <tr data-index="6">
+                                    <td data-field="5" data-key="3-0-5" align="center" data-off="true"
+                                        class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-3-0-5"><a
+                                                class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                                                class="layui-icon layui-icon-edit"></i>编辑</a> <a
+                                                class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                                                class="layui-icon layui-icon-delete"></i>删除</a></div>
+                                    </td>
+                                </tr>
+                                <tr data-index="7">
+                                    <td data-field="5" data-key="3-0-5" align="center" data-off="true"
+                                        class="layui-table-col-special">
+                                        <div class="layui-table-cell laytable-cell-3-0-5"><a
+                                                class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                                                class="layui-icon layui-icon-edit"></i>编辑</a> <a
+                                                class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                                                class="layui-icon layui-icon-delete"></i>删除</a></div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <style>.laytable-cell-3-0-0 {
+                    width: 48px;
+                }
+
+                .laytable-cell-3-0-1 {
+                    width: 80px;
+                }
+
+                .laytable-cell-3-0-2 {
+                }
+
+                .laytable-cell-3-0-3 {
+                }
+
+                .laytable-cell-3-0-4 {
+                }
+
+                .laytable-cell-3-0-5 {
+                    width: 150px;
+                }</style>
+            </div>
+            <script type="text/html" id="buttonTpl">
+                {{#  if(d.check == true){ }}
+                <button class="layui-btn layui-btn-xs">已审核</button>
+                {{#  } else { }}
+                <button class="layui-btn layui-btn-primary layui-btn-xs">未审核</button>
+                {{#  } }}
+            </script>
+            <script type="text/html" id="table-useradmin-admin">
+                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                        class="layui-icon layui-icon-edit"></i>编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+                        class="layui-icon layui-icon-delete"></i>删除</a>
+            </script>
+        </div>
+    </div>
 </div>
 
-<!-- 表格 -->
-<div id="dateTable"></div>
+<script src="/static/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '/static/layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'useradmin', 'table'], function () {
+        var $ = layui.$
+            , form = layui.form
+            , table = layui.table;
 
-<script type="text/javascript" src="/static/frame/layui/layui.js"></script>
-<script type="text/javascript" src="/static/modules/index.js"></script>
-<script type="text/javascript">
+        //搜索角色
+        form.on('select(LAY-user-adminrole-type)', function (data) {
+            //执行重载
+            table.reload('LAY-user-back-role', {
+                where: {
+                    role: data.value
+                }
+            });
+        });
 
-    // layui方法
-    layui.use(['table', 'form', 'layer', 'vip_table'], function () {
+        //事件
+        var active = {
+            batchdel: function () {
+                var checkStatus = table.checkStatus('LAY-user-back-role')
+                    , checkData = checkStatus.data; //得到选中的数据
 
-        // 操作对象
-        var form = layui.form
-                , table = layui.table
-                , layer = layui.layer
-                , vipTable = layui.vip_table
-                , $ = layui.jquery;
+                if (checkData.length === 0) {
+                    return layer.msg('请选择数据');
+                }
 
-        // 表格渲染
-        var tableIns = table.render({
-            elem: '#dateTable'                  //指定原始表格元素选择器（推荐id选择器）
-            , height: vipTable.getFullHeight()    //容器高度
-            , cols: [[                  //标题栏
-                {checkbox: true, sort: true, fixed: true, space: true}
-                , {field: 'id', title: 'ID', width: 80}
-                , {field: 'account', title: '用户名', width: 120}
-                , {field: 'auth_group_name', title: '权限组', width: 120}
-                , {field: 'last_login_time', title: '最后登录时间', width: 180}
-                , {field: 'last_login_ip', title: '最后登录IP', width: 180}
-                , {field: 'create_time', title: '创建时间', width: 180}
-                , {field: 'status', title: '状态', width: 70}
-                , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
-            ]]
-            , id: 'dataCheck'
-            , url: './../json/data_table.json'
-            , method: 'get'
-            , page: true
-            , limits: [30, 60, 90, 150, 300]
-            , limit: 30 //默认采用30
-            , loading: false
-            , done: function (res, curr, count) {
-                //如果是异步请求数据方式，res即为你接口返回的信息。
-                //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
-                console.log(res);
+                layer.confirm('确定删除吗？', function (index) {
 
-                //得到当前页码
-                console.log(curr);
+                    //执行 Ajax 后重载
+                    /*
+                    admin.req({
+                      url: 'xxx'
+                      //,……
+                    });
+                    */
+                    table.reload('LAY-user-back-role');
+                    layer.msg('已删除');
+                });
+            },
+            add: function () {
+                layer.open({
+                    type: 2
+                    , title: '添加新角色'
+                    , content: 'roleform.html'
+                    , area: ['500px', '480px']
+                    , btn: ['确定', '取消']
+                    , yes: function (index, layero) {
+                        var iframeWindow = window['layui-layer-iframe' + index]
+                            , submit = layero.find('iframe').contents().find("#LAY-user-role-submit");
 
-                //得到数据总量
-                console.log(count);
+                        //监听提交
+                        iframeWindow.layui.form.on('submit(LAY-user-role-submit)', function (data) {
+                            var field = data.field; //获取提交的字段
+
+                            //提交 Ajax 成功后，静态更新表格中的数据
+                            //$.ajax({});              
+                            table.reload('LAY-user-back-role');
+                            layer.close(index); //关闭弹层
+                        });
+
+                        submit.trigger('click');
+                    }
+                });
             }
+        }
+        $('.layui-btn.layuiadmin-btn-role').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
         });
-
-        // 获取选中行
-        table.on('checkbox(dataCheck)', function (obj) {
-            layer.msg('123');
-            console.log(obj.checked); //当前是否选中状态
-            console.log(obj.data); //选中行的相关数据
-            console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
-        });
-
-        // 刷新
-        $('#btn-refresh').on('click', function () {
-            tableIns.reload();
-        });
-
-
-        // you code ...
-
     });
 </script>
-<!-- 表格操作按钮集 -->
-<script type="text/html" id="barOption">
-    <a class="layui-btn layui-btn-mini" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del">删除</a>
-</script>
+
+
+<style id="LAY_layadmin_theme">.layui-side-menu, .layadmin-pagetabs .layui-tab-title li:after, .layadmin-pagetabs .layui-tab-title li.layui-this:after, .layui-layer-admin .layui-layer-title, .layadmin-side-shrink .layui-side-menu .layui-nav > .layui-nav-item > .layui-nav-child {
+    background-color: #20222A !important;
+}
+
+.layui-nav-tree .layui-this, .layui-nav-tree .layui-this > a, .layui-nav-tree .layui-nav-child dd.layui-this, .layui-nav-tree .layui-nav-child dd.layui-this a {
+    background-color: #009688 !important;
+}
+
+.layui-layout-admin .layui-logo {
+    background-color: #20222A !important;
+}</style>
 </body>
 </html>

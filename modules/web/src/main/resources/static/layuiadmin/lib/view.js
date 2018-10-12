@@ -1,4 +1,3 @@
-/** layuiAdmin.std-v1.1.0 LPPL License By http://www.layui.com/admin/ */
 ;layui.define(["laytpl", "layer"], function (e) {
     var t = layui.jquery, n = layui.laytpl, a = layui.layer, r = layui.setter, o = (layui.device(), layui.hint()),
         i = function (e) {
