@@ -1,7 +1,7 @@
 layui.extend({
     setter: "config", // 配置文件
     admin: "lib/admin",
-    view: "lib/view"
+    view: "lib/view",
 }).define(["setter", "admin"], function (exports) {
     var setter = layui.setter,
         element = layui.element,
@@ -66,6 +66,10 @@ layui.extend({
     })
     view().autoRender()
     layui.use("common")
+    layui.use("admin_nav",function () {
+        adminNav=layui.admin_nav;
+        adminNav.navMenu('/menu/left', 'layadmin-system-side-menu', false)
+    })
     exports("index", {
         openTabsPage: openTabsPage
     })
