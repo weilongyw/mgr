@@ -15,7 +15,7 @@ public class IndexController {
     }
 
 
-    @GetMapping(value = "/weolcome")
+    @GetMapping(value = "/welcome")
     public ModelAndView welcome() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("welcome");
