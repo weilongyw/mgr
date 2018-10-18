@@ -1,4 +1,4 @@
-package com.csj.application.web.shiro;
+package com.csj.application.web.shiro.matcher;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.authc.AuthenticationInfo;

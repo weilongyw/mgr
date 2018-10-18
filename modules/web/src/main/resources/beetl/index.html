@@ -22,19 +22,14 @@
                         <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
                     </a>
                 </li>
-                <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                    <a href="http://www.layui.com/admin/" target="_blank" title="前台">
-                        <i class="layui-icon layui-icon-website"></i>
-                    </a>
-                </li>
                 <li class="layui-nav-item" lay-unselect>
                     <a href="javascript:;" layadmin-event="refresh" title="刷新">
                         <i class="layui-icon layui-icon-refresh-3"></i>
                     </a>
                 </li>
-                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                <!--<li class="layui-nav-item layui-hide-xs" lay-unselect>
                     <input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search" layadmin-event="serach" lay-action="template/search.html?keywords=">
-                </li>
+                </li>-->
             </ul>
             <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
 
@@ -62,7 +57,7 @@
                 </li>
                 <li class="layui-nav-item" lay-unselect>
                     <a href="javascript:;">
-                        <cite>贤心</cite>
+                        <cite>${session.user.userName}${id}</cite>
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a lay-href="set/user/info.html">基本资料</a></dd>
@@ -88,26 +83,7 @@
                 <div class="layui-logo" lay-href="/index">
                     <span>后台管理</span>
                 </div>
-
-                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
-                    <!--<li data-name="home" class="layui-nav-item layui-nav-itemed">
-                        <a href="javascript:;" lay-tips="主页" lay-direction="2">
-                            <i class="layui-icon layui-icon-home"></i>
-                            <cite>主页</cite>
-                        </a>
-                        <dl class="layui-nav-child">
-                            <dd data-name="console" class="layui-this">
-                                <a lay-href="home/console.html">控制台</a>
-                            </dd>
-                            <dd data-name="console">
-                                <a lay-href="home/homepage1.html">主页一</a>
-                            </dd>
-                            <dd data-name="console">
-                                <a lay-href="home/homepage2.html">主页二</a>
-                            </dd>
-                        </dl>
-                    </li>-->
-                </ul>
+                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu"></ul>
             </div>
         </div>
 
@@ -138,7 +114,7 @@
         <!-- 主体内容 -->
         <div class="layui-body" id="LAY_app_body">
             <div class="layadmin-tabsbody-item layui-show">
-                <iframe src="/console.html" frameborder="0" class="layadmin-iframe"></iframe>
+                <iframe src="/welcome.html" frameborder="0" class="layadmin-iframe"></iframe>
             </div>
         </div>
 

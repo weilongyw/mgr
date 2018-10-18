@@ -83,7 +83,11 @@
 
 <script src="/static/layuiadmin/layui/layui.js"></script>
 <script>
-
+    window.onload = function () {
+        if (window.parent.window != window) {
+            window.top.location = "/login";
+        }
+    }
 </script>
 </body>
 </html>
