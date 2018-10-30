@@ -24,5 +24,12 @@ public class SettingController {
         return modelAndView;
     }
 
+    @GetMapping("/permission")
+    public ModelAndView permission(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("setting/mgr_permission");
+        return modelAndView;
+    }
+
 
 }
