@@ -2,8 +2,6 @@
 <ehcache updateCheck="false" dynamicConfig="false">
     <diskStore path="java.io.tmpdir"/>
 
-    <cache name="users" timeToLiveSeconds="300" maxEntriesLocalHeap="1000"/>
-
     <defaultCache name="defaultCache"
                   maxElementsInMemory="10000"
                   eternal="false"
@@ -14,4 +12,7 @@
                   diskPersistent="false"
                   diskExpiryThreadIntervalSeconds="120"
                   memoryStoreEvictionPolicy="LRU"/>
+
+    <cache name="users" timeToLiveSeconds="300" maxEntriesLocalHeap="1000"/>
+
 </ehcache>
