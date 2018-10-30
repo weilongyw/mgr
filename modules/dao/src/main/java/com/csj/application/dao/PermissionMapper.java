@@ -13,9 +13,9 @@ public interface PermissionMapper {
 
     Permission selectByPrimaryKey(String id);
 
-    List<Permission> selectByRole(List<String> roles);
-
     int updateByPrimaryKeySelective(Permission record);
 
     int updateByPrimaryKey(Permission record);
+
+    List<Permission> selectByRole(List<String> roleIds);
 }

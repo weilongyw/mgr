@@ -8,20 +8,12 @@
   <sql id="Base_Column_List" >
     id, per_name
   </sql>
-
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select * from sys_permission where id = #{id,jdbcType=VARCHAR}
+    select 
+    <include refid="Base_Column_List" />
+    from sys_permission
+    where id = #{id,jdbcType=VARCHAR}
   </select>
-
-  <select id="selectByRole" resultMap="BaseResultMap" parameterType="java.util.List" >
-    select  *  from sys_permission where id in(
-            select distinct per_id from sys_role_permission where role_id in
-            <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-                    #{item}
-           </foreach>
-    )
-  </select>
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from sys_permission
     where id = #{id,jdbcType=VARCHAR}
@@ -63,4 +55,15 @@
     set per_name = #{perName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <select id="selectByRole" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select  *  from sys_permission where id in(
+    select distinct per_id from sys_role_permission where role_id in
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+    )
+  </select>
+
+
 </mapper>

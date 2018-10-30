@@ -30,7 +30,7 @@ public class CusAuthorizingRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         logger.info("===============授权方法执行");
         User user = (User) principalCollection.getPrimaryPrincipal();
-        user=userService.getUserByUserName(user.getUserAct());
+        user=userService.getUserByUserName(user.getAct());
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         List<Role> roles = userService.getRoles(user.getId());
         List<Permission> rolePermissions = userService.getPermissions(roles);
@@ -58,7 +58,7 @@ public class CusAuthorizingRealm extends AuthorizingRealm {
         UsernamePasswordToken authToken = (UsernamePasswordToken) authenticationToken;
         User user=userService.getUserByUserName(authToken.getUsername());
         if (null != user) {
-            SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user, user.getUserPwd(), getName());
+            SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user, user.getPwd(), getName());
             return authenticationInfo;
         }else{
             return null;

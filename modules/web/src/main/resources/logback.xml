@@ -138,7 +138,7 @@
         </connectionSource>
     </appender>-->
 
-   <logger name="com.csj.shop.dao" additivity="false">
+   <logger name="com.csj.application.dao" additivity="false">
         <level value="DEBUG" />
         <appender-ref ref="STDOUT" />
         <appender-ref ref="DEBUG" />

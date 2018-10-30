@@ -10,12 +10,12 @@ import java.util.List;
 @Data
 public class MenuVo {
 
-    public MenuVo(Menu menu){
-        this.id=menu.getId();
-        this.text=menu.getMenuName();
-        this.icon=menu.getMenuIcon();
-        this.href=menu.getMenuUrl();
-        this.pid=menu.getParentId();
+    public MenuVo(Menu menu) {
+        this.id = menu.getId();
+        this.text = menu.getMenuName();
+        this.icon = menu.getIcon();
+        this.href = menu.getUrl();
+        this.pid = menu.getParentId();
     }
 
     @JsonIgnore
@@ -28,7 +28,7 @@ public class MenuVo {
 
     private String icon;
 
-    @JsonInclude( JsonInclude.Include.NON_EMPTY)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String href;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
